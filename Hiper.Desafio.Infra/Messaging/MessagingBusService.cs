@@ -31,7 +31,7 @@ public class MessageBusService
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
-            channel.QueueDeclare(queue: "pedidos-queue",
+            channel.QueueDeclare(queue: _queueName,
                                  durable: true, //persiste a fila se o rabbit reiniciar
                                  exclusive: false,
                                  autoDelete: false,
@@ -41,7 +41,7 @@ public class MessageBusService
             var body = Encoding.UTF8.GetBytes(json);
 
             channel.BasicPublish(exchange: "",
-                                 routingKey: "pedidos-queue",
+                                 routingKey: _queueName,
                                  basicProperties: null,
                                  body: body);
 
