@@ -1,0 +1,6 @@
+@Hiper.Desafio.Api_HostAddress = http://localhost:5033
+
+GET {{Hiper.Desafio.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
