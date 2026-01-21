@@ -21,3 +21,20 @@ Este projeto é um MVP de processamento de pedidos desenvolvido para o desafio t
 - [x] Dependency Injection
 - [x] Strategy Pattern 
 - [x] Publisher/Subscriber com RabbitMQ 
+
+## Testando o Fluxo
+Para testar a integração completa (API -> RabbitMQ -> Worker):
+
+Envie um POST para http://localhost:5033/api/pedidos:
+
+JSON
+
+{
+  "descricao": "Venda Senior Hiper",
+  "valor": 1000,
+  "tipoCliente": "VIP"
+}
+Verifique o log do Worker. Você verá o pedido sendo recebido e processado em tempo real.
+Acesse o painel do RabbitMQ em http://localhost:15672 (guest/guest) para monitorar as filas.
+
+### Próximo Passo: Frontend (React)
