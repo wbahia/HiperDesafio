@@ -18,4 +18,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hiper.Desafio.Application\Hiper.Desafio.Application.csproj" />
+    <ProjectReference Include="..\Hiper.Desafio.Domain\Hiper.Desafio.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
