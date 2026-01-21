@@ -1,9 +1,12 @@
+using Hiper.Desafio.Application.Services;
+using Hiper.Desafio.Domain.Interfaces;
+using Hiper.Desafio.Domain.Strategies;
 using Hiper.Desafio.Infra.Context;
 using Hiper.Desafio.Infra.Repositories;
-using Hiper.Desafio.Domain.Interfaces; 
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
 
 // DB
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -23,7 +26,15 @@ builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 // Controllers e Swagger/OpenAPI
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi(); // .NET 9 standard
+//builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
+
+// Strategies
+builder.Services.AddScoped<IDescontoStrategy, DescontoVipStrategy>();
+builder.Services.AddScoped<IDescontoStrategy, DescontoComumStrategy>();
+
+// Calculadora (Contexto da Strategy)
+builder.Services.AddScoped<CalculadoraDesconto>();
 
 // CORS 
 builder.Services.AddCors(options =>
@@ -41,6 +52,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
