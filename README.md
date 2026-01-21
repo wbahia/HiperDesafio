@@ -14,9 +14,10 @@ Este projeto é um MVP de processamento de pedidos desenvolvido para o desafio t
 2. Na raiz do projeto, execute: `docker-compose up -d`
 3. Execute as migrations: `dotnet ef database update --project Hiper.Desafio.Infra --startup-project Hiper.Desafio.Api`
 4. Rode a API: `dotnet run --project Hiper.Desafio.Api`
+5. Rode o worker (em outro terminal) 'dotnet run --project Hiper.Desafio.Worker'
 
 ## Patterns Implementados
 - [x] Repository Pattern
 - [x] Dependency Injection
-- [ ] Strategy Pattern (Próximo passo)
-- [ ] Publisher/Subscriber com RabbitMQ (Próximo passo)
+- [x] Strategy Pattern 
+- [x] Publisher/Subscriber com RabbitMQ 
