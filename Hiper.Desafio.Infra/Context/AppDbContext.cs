@@ -17,6 +17,7 @@ namespace Hiper.Desafio.Infra.Context
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Descricao).IsRequired().HasMaxLength(200);
                 entity.Property(e => e.Valor).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.ValorFinal).HasColumnType("decimal(18,2)");
             });
         }
     }

@@ -2,6 +2,7 @@ using Hiper.Desafio.Application.Services;
 using Hiper.Desafio.Domain.Interfaces;
 using Hiper.Desafio.Domain.Strategies;
 using Hiper.Desafio.Infra.Context;
+using Hiper.Desafio.Infra.Messaging;
 using Hiper.Desafio.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +36,9 @@ builder.Services.AddScoped<IDescontoStrategy, DescontoComumStrategy>();
 
 // Calculadora (Contexto da Strategy)
 builder.Services.AddScoped<CalculadoraDesconto>();
+
+// Mensageria
+builder.Services.AddScoped<MessageBusService>();
 
 // CORS 
 builder.Services.AddCors(options =>

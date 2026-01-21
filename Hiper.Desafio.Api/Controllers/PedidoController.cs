@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hiper.Desafio.Application.Services;
 using Hiper.Desafio.Domain.Entities;
 using Hiper.Desafio.Domain.Interfaces;
-using Hiper.Desafio.Application.Services;
+using Hiper.Desafio.Infra.Messaging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hiper.Desafio.Api.Controllers;
 
@@ -11,11 +12,15 @@ public class PedidosController : ControllerBase
 {
     private readonly IPedidoRepository _repository;
     private readonly CalculadoraDesconto _calculadora;
+    private readonly MessageBusService _messageBus;
 
-    public PedidosController(IPedidoRepository repository, CalculadoraDesconto calculadora)
+    public PedidosController(IPedidoRepository repository, 
+                             CalculadoraDesconto calculadora, 
+                             MessageBusService messageBus)
     {
         _repository = repository;
         _calculadora = calculadora;
+        _messageBus = messageBus;
     }
 
     [HttpGet]
@@ -28,12 +33,15 @@ public class PedidosController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] Pedido pedido)
     {
-        // Aplica a regra de negócio via Strategy
+        // Lógica de negócio (Strategy)
         pedido.ValorFinal = _calculadora.Aplicar(pedido.TipoCliente, pedido.Valor);
         pedido.Status = "Processando";
 
         // Persistência
         await _repository.AddAsync(pedido);
+
+        // Envio de mensagem
+        _messageBus.PublicarPedido(pedido);
 
         return Ok(pedido);
     }
