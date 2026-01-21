@@ -9,10 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Hiper.Desafio.Application\Hiper.Desafio.Application.csproj" />
     <ProjectReference Include="..\Hiper.Desafio.Infra\Hiper.Desafio.Infra.csproj" />
+    <ProjectReference Include="..\Hiper.Desafio.Domain\Hiper.Desafio.Domain.csproj" />
   </ItemGroup>
 </Project>
