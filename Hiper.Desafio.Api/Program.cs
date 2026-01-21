@@ -49,6 +49,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
+    options.AddPolicy("AllowReact",
+        policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
 var app = builder.Build();
@@ -65,6 +67,7 @@ app.UseHttpsRedirection();
 // CORS e o mapeamento de Controllers
 app.UseCors("DefaultPolicy");
 app.UseAuthorization();
+app.UseCors("AllowReact");
 
 app.MapControllers();
 
